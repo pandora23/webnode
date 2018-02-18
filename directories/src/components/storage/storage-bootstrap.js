@@ -51,6 +51,7 @@ class StorageBootstrap extends Component {
         storageTitle = '_getStorageTitleFn -> default';
     }
     return storageTitle;
+    
   }
 
   _getRandomItemFn(storage) {
@@ -75,6 +76,7 @@ class StorageBootstrap extends Component {
   }
 
   _getStorageTitleFn(random) {
+
     let storageTitle = '';
     switch(random){
       case 0:
@@ -88,6 +90,7 @@ class StorageBootstrap extends Component {
         break;
       default:
         storageTitle = '_getStorageTitleFn -> default';
+
     }
     return storageTitle;
   }

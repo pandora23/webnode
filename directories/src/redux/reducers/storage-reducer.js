@@ -9,6 +9,7 @@ const initState = {
     transaction_id: DEFAULT_CONSTANT.EXCHANGES_TRANSACTION_ID, 
     need_requested: DEFAULT_CONSTANT.EXCHANGES_NEED_REQUESTED 
   }
+  
 };
 
 const storageReducer = (state = initState, action) => {
