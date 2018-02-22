@@ -6,7 +6,6 @@ import reducer from 'redux/reducers';
 
 const persistConfig = {
   key: 'directories',
-
   storage
 };
 
