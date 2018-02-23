@@ -8,7 +8,9 @@ class StorageBootstrap extends Component {
       storage,
       storageBrokerNodeAddFn, 
       storageWebNodeAddFn,
-      storageGenesisHashAddFn
+      storageGenesisHashAddFn,
+      storageExchangesAddFn,
+      storagePeerIdChangeFn
     } = props;
 
     console.log('Storage BrokerNode -> ' + storage.brokerNode);
@@ -18,14 +20,18 @@ class StorageBootstrap extends Component {
     storageBrokerNodeAddFn('Next BrokerNode');
     storageWebNodeAddFn('Next WebNode');
     storageGenesisHashAddFn('Next GenesisHash');
+    storageExchangesAddFn('transaction_id_0', 'BrokerNode1');
+    storageExchangesAddFn('transaction_id_1', 'BrokerNode2');
+    storageExchangesAddFn('transaction_id_2', 'BrokerNode3');
+    storagePeerIdChangeFn('peer-client');
 
     this._getRandomItemFn(storage);
 
     console.log('DEMO 2');
     const randomStorage = this._getRandomStorage();
     console.log('randomStorage ' + randomStorage);
-    console.log('transaction_id ' + storage.exchanges.transaction_id);
-    console.log('need_requested ' + storage.exchanges.need_requested);
+    storage.exchanges.map((item) => console.log('exchanges transaction_id ' + item.transaction_id + " need_requested " + item.need_requested));
+    console.log('peerId ' + storage.peerId);
   }
 
   _getRandomStorage() {

@@ -6,13 +6,13 @@ class App extends Component {
     e.preventDefault();
 
     const { peer } = this.props;
-    const {peerId, message} = this.refs;
+    const { peerId, message } = this.refs;
 
     const conn = peer.connect(peerId.value);
     const val = message.value;
 
     conn.on('open', function(){
-      conn.send(val);
+      conn.send({'request_type': val, 'need_type': val});
     });
   }
 
@@ -24,7 +24,7 @@ class App extends Component {
 
     peer.on('connection', function(conn) {
       conn.on('data', function(data){
-        console.log("Received data -> " + data);
+        console.log('Received data -> ' + data.request_type);
       });
     });
 

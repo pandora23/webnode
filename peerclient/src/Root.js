@@ -4,10 +4,7 @@ import Peer from 'peerjs';
 
 class Root extends React.Component {
   render() {
-  	let client = 'client-test';
-    if(process.env.DEV_CLIENT === '') {
-      client = process.env.DEV_CLIENT;
-    }
+  	let client = 'client-test' + Math.random() * 100 - 23;
   	const peer = new Peer(
   		client, {host: 'localhost', port: 8000, path: '/peer', debug: 3}
   	);

@@ -14,14 +14,20 @@ const mapDispatchToProps = dispatch => ({
    storageWebNodeAddFn: item =>
     dispatch(storageActions.storageWebNodeAddAction(item)),
    storageGenesisHashAddFn: item =>
-    dispatch(storageActions.storageGenesisHashAddAction(item))
+    dispatch(storageActions.storageGenesisHashAddAction(item)),
+   storageExchangesAddFn: (transaction_id, need_requested) =>
+    dispatch(storageActions.storageExchangesAddAction(transaction_id, need_requested)),
+   storagePeerIdChangeFn: item =>
+    dispatch(storageActions.storagePeerIdChangeAction(item))
 });
 
-const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn}) => (
+const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn }) => (
   <StorageBootstrap storage={storage} 
   	storageBrokerNodeAddFn={storageBrokerNodeAddFn}
   	storageWebNodeAddFn={storageWebNodeAddFn}
   	storageGenesisHashAddFn={storageGenesisHashAddFn}
+    storageExchangesAddFn={storageExchangesAddFn}
+    storagePeerIdChangeFn={storagePeerIdChangeFn}
   />
 );
 
