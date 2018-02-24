@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import sha256 from 'sha256';
 
 class StorageBootstrap extends Component {
 
   constructor(props) {
     super(props);
+
     const {
       storage,
       storageBrokerNodeAddFn, 
@@ -13,6 +15,7 @@ class StorageBootstrap extends Component {
       storagePeerIdChangeFn
     } = props;
 
+    console.log('DEMO 0');
     console.log('Storage BrokerNode -> ' + storage.brokerNode);
     console.log('Storage WebNode -> ' + storage.webNode);
     console.log('Storage GenesisHash -> ' + storage.genesisHash);
@@ -27,14 +30,59 @@ class StorageBootstrap extends Component {
 
     this._getRandomItemFn(storage);
 
-    console.log('DEMO 2');
-    const randomStorage = this._getRandomStorage();
+    console.log('DEMO 1');
+    const randomStorage = this._getRandomStorageFn();
     console.log('randomStorage ' + randomStorage);
     storage.exchanges.map((item) => console.log('exchanges transaction_id ' + item.transaction_id + " need_requested " + item.need_requested));
     console.log('peerId ' + storage.peerId);
+
+    console.log('DEMO 2');
+    console.log('Hash ' + sha256('hash256'));
+
+    const prepareList = storage.exchanges.map((item) => item.transaction_id);
+    console.log('prepareList');
+    prepareList.map((item) => console.log('item ' + item));
+
+    const listHash = this._hashListFn(prepareList);
+    console.log('hashList');
+    listHash.map((item) => console.log('hashItem ' + item));
+    
+    console.log('same list return -1 -> ' + this._compareListFn(prepareList, prepareList));
+    
+    const mergeStorage = this._compareListFn(prepareList, listHash);
+    console.log('diffrent list -> ');
+    console.log(mergeStorage);
   }
 
-  _getRandomStorage() {
+  _jsonToObjectFn(jsonObject) {
+    let object = null;
+    if(jsonObject !== undefined && jsonObject !== null) {
+      object = JSON.parse(JSON.stringify(jsonObject));
+    }
+    return object;
+  }
+
+  _compareListFn(list, compareList) {
+    const compareListKeys = Object.keys(compareList);
+    let compare = [];
+    for(let i = 0; i < compareListKeys.length; i++) {
+      const listValue = list[i];
+      const compareListValue = compareList[i];
+      if(listValue !== compareListValue) {
+        compare.push(compareListValue);
+      }
+    }
+    
+    if(compare.length === 0)
+      return -1;
+    return compare;
+  }
+
+  _hashListFn(list) {
+    return list.map((item) => sha256(item));
+  }
+
+  _getRandomStorageFn() {
     const random = this._randomFn(2);
     const storageTitle = this._getStorageNameFn(random);
     return storageTitle;
@@ -42,7 +90,6 @@ class StorageBootstrap extends Component {
 
   _getStorageNameFn(random) {
     let storageTitle = '';
-    console.log(random);
     switch(random){
       case 0:
         storageTitle = 'broker_address';
@@ -57,10 +104,7 @@ class StorageBootstrap extends Component {
         storageTitle = '_getStorageTitleFn -> default';
     }
     return storageTitle;
-<<<<<<< HEAD
     
-=======
->>>>>>> 9ec25147cd99c2179f8d0941b05497007794d1d8
   }
 
   _getRandomItemFn(storage) {
@@ -85,7 +129,6 @@ class StorageBootstrap extends Component {
   }
 
   _getStorageTitleFn(random) {
-
     let storageTitle = '';
     switch(random){
       case 0:
