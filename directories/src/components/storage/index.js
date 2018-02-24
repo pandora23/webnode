@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import storageActions from '../../redux/actions/storage-actions';
 import StorageBootstrap from 'components/storage/storage-bootstrap';
 
+
 const mapStateToProps = state => ({
 	storage: state.storage
 });
@@ -22,12 +23,14 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn }) => (
+
   <StorageBootstrap storage={storage} 
   	storageBrokerNodeAddFn={storageBrokerNodeAddFn}
   	storageWebNodeAddFn={storageWebNodeAddFn}
   	storageGenesisHashAddFn={storageGenesisHashAddFn}
     storageExchangesAddFn={storageExchangesAddFn}
     storagePeerIdChangeFn={storagePeerIdChangeFn}
+
   />
 );
 

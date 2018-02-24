@@ -57,7 +57,6 @@ class StorageBootstrap extends Component {
         storageTitle = '_getStorageTitleFn -> default';
     }
     return storageTitle;
-    
   }
 
   _getRandomItemFn(storage) {
