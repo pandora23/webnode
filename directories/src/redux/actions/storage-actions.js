@@ -39,6 +39,10 @@ const ACTIONS = Object.freeze({
     payload: item
   })
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ec25147cd99c2179f8d0941b05497007794d1d8
 });
 
 export default ACTIONS;
