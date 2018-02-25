@@ -1,7 +1,10 @@
 var express = require('express');
 var ExpressPeerServer = require('peer').ExpressPeerServer;
+var logger = require('morgan');
 
 var app = express();
+
+app.use(logger('dev'));
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
