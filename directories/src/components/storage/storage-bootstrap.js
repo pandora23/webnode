@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import sha256 from 'sha256';
 
 class StorageBootstrap extends Component {
@@ -12,7 +13,11 @@ class StorageBootstrap extends Component {
       storageWebNodeAddFn,
       storageGenesisHashAddFn,
       storageExchangesAddFn,
-      storagePeerIdChangeFn
+      storagePeerIdChangeFn,
+      peerId, 
+      connectedPeerIds,
+      connectToPeerFn,
+      initPeerFn
     } = props;
 
     console.log('DEMO 0');
@@ -52,6 +57,12 @@ class StorageBootstrap extends Component {
     const mergeStorage = this._compareListFn(prepareList, listHash);
     console.log('diffrent list -> ');
     console.log(mergeStorage);
+
+    console.log('DEMO 4');
+    initPeerFn();
+    
+    console.log('peerID' + peerId);
+    connectedPeerIds.map(id => console.log('ConnectedPeersIds -> ' + id));
   }
 
   _jsonToObjectFn(jsonObject) {
@@ -166,5 +177,23 @@ class StorageBootstrap extends Component {
     return(<div></div>);
   }
 }
+
+StorageBootstrap.propTypes = {
+    peerId: PropTypes.string,
+    connectedPeerIds: PropTypes.arrayOf(PropTypes.string),
+    initPeerFn: PropTypes.func.isRequired,
+    connectToPeerFn: PropTypes.func.isRequired,
+    storage: PropTypes.object.isRequired,
+    storageBrokerNodeAddFn: PropTypes.func.isRequired, 
+    storageWebNodeAddFn: PropTypes.func.isRequired,
+    storageGenesisHashAddFn: PropTypes.func.isRequired,
+    storageExchangesAddFn: PropTypes.func.isRequired,
+    storagePeerIdChangeFn: PropTypes.func.isRequired
+};
+
+StorageBootstrap.defaultProps = {
+    peerId: 'not initialized',
+    connectedPeerIds: [],
+};
 
 export default StorageBootstrap;

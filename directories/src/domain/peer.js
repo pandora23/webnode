@@ -1,4 +1,4 @@
-export default function peer(peer) {
+export default function peerDomain(peer) {
   return {
     __peer() { return peer },
     id() { return peer.id },

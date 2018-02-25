@@ -1,5 +1,5 @@
-import {createPeer, connectToPeer as connect, send} from './api/peerApi';
-import peerDomain from './domain/peer';
+import {createPeer, connectToPeer as connect, send} from '../../api/peer-api';
+import peerDomain from '../../domain/peer';
 
 export const initPeer = (peerOptions) => (dispatch, getState) => dispatch({
   type: 'PEER_INIT',
@@ -41,6 +41,6 @@ export const connectToPeer = (remotePeerId) => (dispatch, getState) => {
 };
 
 export const sendMessage = (message) => (dispatch, getState) => {
-  const {peer} = getState();
+  const { peer } = getState();
   send(peer.__peer)(message);
 };

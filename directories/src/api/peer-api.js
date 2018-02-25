@@ -10,18 +10,18 @@ export function createPeer(options, onOpen, onConnection, onMessageRecieve, onEr
     path: '/peer',
     ...options,
   });
-  error(peer, onError);
-  open(peer, onOpen);
-  connection(peer, (conn) => {
+  _error(peer, onError);
+  _open(peer, onOpen);
+  _connection(peer, (conn) => {
     onConnection(conn);
-    data(conn, onMessageRecieve);
+    _data(conn, onMessageRecieve);
   });
   return peer;
 }
 
 export const send = (peer) => (data) => {
   Object.keys(peer.connections).forEach((peerId) => {
-    peer.connections[peerId].map(conn => {
+    peer.connections[peerId].map( (conn) => {
       if(conn.open) {
         conn.send(data);
       } else {
@@ -31,7 +31,7 @@ export const send = (peer) => (data) => {
   });
 }
 
-_open(peer, onOpen = noop, onError = noop) {
+function _open(peer, onOpen = noop, onError = noop) {
   return new Promise((resolve, reject) => {
     try {
       if (peer.open) {
@@ -47,15 +47,15 @@ _open(peer, onOpen = noop, onError = noop) {
     }
   });
 }
-_connection(peer, onConnection = noop) {
+function _connection(peer, onConnection = noop) {
   peer.on('connection', onConnection);
 }
 
-_data(peer, onData = noop) {
+function _data(peer, onData = noop) {
   peer.on('data', onData);
 }
 
-_error(peer, onError = noop) {
+function _error(peer, onError = noop) {
   peer.on('error', onError);
 }
 
@@ -69,9 +69,9 @@ export async function connectToPeer(
   try {
     if (peer.connections[remotePeerId] === undefined) {
       const peerConn = peer.connect(remotePeerId, {serialization: 'json'});
-      error(peerConn, onError);
-      await open(peerConn, onOpen);
-      data(peerConn, onMessageRecieve);
+      _error(peerConn, onError);
+      await _open(peerConn, onOpen);
+      _data(peerConn, onMessageRecieve);
     } else {
       console.error('Already connected - remote peerId' + remotePeerId);
     }
