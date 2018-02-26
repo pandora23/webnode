@@ -14,10 +14,7 @@ class StorageBootstrap extends Component {
       storageGenesisHashAddFn,
       storageExchangesAddFn,
       storagePeerIdChangeFn,
-      peerId, 
-      connectedPeerIds,
-      connectToPeerFn,
-      initPeerFn
+      peerId
     } = props;
 
     console.log('DEMO 0');
@@ -59,10 +56,8 @@ class StorageBootstrap extends Component {
     console.log(mergeStorage);
 
     console.log('DEMO 4');
-    initPeerFn();
     
-    console.log('peerID' + peerId);
-    connectedPeerIds.map(id => console.log('ConnectedPeersIds -> ' + id));
+    console.log('peerID -> ' + peerId);
   }
 
   _jsonToObjectFn(jsonObject) {
@@ -180,9 +175,6 @@ class StorageBootstrap extends Component {
 
 StorageBootstrap.propTypes = {
     peerId: PropTypes.string,
-    connectedPeerIds: PropTypes.arrayOf(PropTypes.string),
-    initPeerFn: PropTypes.func.isRequired,
-    connectToPeerFn: PropTypes.func.isRequired,
     storage: PropTypes.object.isRequired,
     storageBrokerNodeAddFn: PropTypes.func.isRequired, 
     storageWebNodeAddFn: PropTypes.func.isRequired,

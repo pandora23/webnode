@@ -1,46 +1,46 @@
-import {createPeer, connectToPeer as connect, send} from '../../api/peer-api';
-import peerDomain from '../../domain/peer';
+const PEER_INIT = 'directories/peer/init';
+const PEER_CONNECT_TO = 'directories/peer/connect/to';
+const PEER_SEND_MESSAGE = 'directories/peer/send/message';
+const PEER_OPEN = 'directories/peer/open';
+const PEER_CONNECTION = 'directories/peer/connection';
+const PEER_CONNECTING = 'directories/peer/connecting';
 
-export const initPeer = (peerOptions) => (dispatch, getState) => dispatch({
-  type: 'PEER_INIT',
-  peer: peerDomain(createPeer(
-    peerOptions,
-    (id) => dispatch({type: 'PEER_OPEN', id}),
-    (conn) => dispatch({type: 'PEER_CONNECTION', conn}),
-    (action) => {
-      const {peer} = getState();
-      const peerInfo = action['PEER_META'];
-      if (peerInfo.peerId === peer.id) {
-        return;
-      }
-      dispatch({type: 'PEER_DATA_RECEIVE', action});
-      dispatch(action);
-    },
-    (err) => dispatch({type: 'PEER_ERROR', err}),
-  )),
+const ACTIONS = Object.freeze({
+  // actions
+  PEER_INIT,
+  PEER_CONNECT_TO,
+  PEER_SEND_MESSAGE,
+  PEER_OPEN,
+  PEER_CONNECTION,
+  PEER_CONNECTING,
+
+  // actionCreators
+  peerInitAction: () => ({
+    type: ACTIONS.PEER_INIT
+  }),
+
+  peerConnectToAction: (remotePeerId) => ({
+    type: ACTIONS.PEER_CONNECT_TO,
+    remotePeerId: remotePeerId
+  }),
+
+  peerSendMessageAction: (message) => ({
+    type: ACTIONS.PEER_SEND_MESSAGE,
+    message: message
+  }),
+
+  peerOpenAction: () => ({
+    type: ACTIONS.PEER_OPEN
+  }),
+
+  peerConnectionAction: () => ({
+    type: ACTIONS.PEER_CONNECTION
+  }),
+
+  peerConnectingAction: () => ({
+    type: ACTIONS.PEER_CONNECTING
+  })
+
 });
 
-export const connectToPeer = (remotePeerId) => (dispatch, getState) => {
-  const {peer} = getState();
-  dispatch({type: 'PEER_CONNECTING', peer, remotePeerId});
-  connect(
-    peer.__peer,
-    remotePeerId,
-    (id) => dispatch({type: 'PEER_OPEN', id}),
-    (action) => {
-      const {peer} = getState();
-      const peerInfo = action['PEER_META'];
-      if (peerInfo.peerId === peer.id) {
-        return;
-      }
-      dispatch({type: 'PEER_DATA_RECEIVE', action});
-      dispatch(action);
-    },
-    (err) => dispatch({type: 'PEER_ERROR', err}),
-  );
-};
-
-export const sendMessage = (message) => (dispatch, getState) => {
-  const { peer } = getState();
-  send(peer.__peer)(message);
-};
+export default ACTIONS;

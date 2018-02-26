@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { selectPeerId, selectConnectedPeerIds } from '../../utils/selectors';
-import { initPeer, connectToPeer } from '../../redux/actions/peer-actions';
-
+import peerActions from '../../redux/actions/peer-actions';
 import storageActions from '../../redux/actions/storage-actions';
+
 import StorageBootstrap from 'components/storage/storage-bootstrap';
 
 const mapStateToProps = state => ({
@@ -13,31 +13,32 @@ const mapStateToProps = state => ({
   connectedPeerIds: selectConnectedPeerIds(state)
 });
 
-const actions = {initPeer, connectToPeer};
-
 const mapDispatchToProps = dispatch => ({
   storageBrokerNodeAddFn: item =>
     dispatch(storageActions.storageBrokerNodeAddAction(item)),
-   storageWebNodeAddFn: item =>
+  storageWebNodeAddFn: item =>
     dispatch(storageActions.storageWebNodeAddAction(item)),
-   storageGenesisHashAddFn: item =>
+  storageGenesisHashAddFn: item =>
     dispatch(storageActions.storageGenesisHashAddAction(item)),
-   storageExchangesAddFn: (transaction_id, need_requested) =>
+  storageExchangesAddFn: (transaction_id, need_requested) =>
     dispatch(storageActions.storageExchangesAddAction(transaction_id, need_requested)),
-   storagePeerIdChangeFn: item =>
+  storagePeerIdChangeFn: item =>
     dispatch(storageActions.storagePeerIdChangeAction(item)),
-    
+  peerInitFn: () =>
+    dispatch(peerActions.peerInitAction()),
+  peerConnectToFn: item =>
+    dispatch(peerActions.peerConnectToAction(item)),
 });
 
-const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn }) => (
+const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn, peerInitFn, peerConnectToFn }) => (
   <StorageBootstrap storage={storage} 
   	storageBrokerNodeAddFn={storageBrokerNodeAddFn}
   	storageWebNodeAddFn={storageWebNodeAddFn}
   	storageGenesisHashAddFn={storageGenesisHashAddFn}
     storageExchangesAddFn={storageExchangesAddFn}
     storagePeerIdChangeFn={storagePeerIdChangeFn}
-    initPeerFn={initPeer}
-    connectToPeerFn={connectToPeer}
+    peerInitFn={peerInitFn}
+    peerConnectToFn={peerConnectToFn}
   />
 );
 
