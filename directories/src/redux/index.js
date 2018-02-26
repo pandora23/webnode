@@ -1,7 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { createLogger } from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
 
 import epics from "redux/epics";

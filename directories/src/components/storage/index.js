@@ -30,15 +30,14 @@ const mapDispatchToProps = dispatch => ({
     dispatch(peerActions.peerConnectToAction(item)),
 });
 
-const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn, peerInitFn, peerConnectToFn }) => (
+const Storage = ({ storage, storageBrokerNodeAddFn, storageWebNodeAddFn, storageGenesisHashAddFn, storageExchangesAddFn, storagePeerIdChangeFn, peer }) => (
   <StorageBootstrap storage={storage} 
   	storageBrokerNodeAddFn={storageBrokerNodeAddFn}
   	storageWebNodeAddFn={storageWebNodeAddFn}
   	storageGenesisHashAddFn={storageGenesisHashAddFn}
     storageExchangesAddFn={storageExchangesAddFn}
     storagePeerIdChangeFn={storagePeerIdChangeFn}
-    peerInitFn={peerInitFn}
-    peerConnectToFn={peerConnectToFn}
+    peer={peer}
   />
 );
 
